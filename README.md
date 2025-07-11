@@ -4,7 +4,25 @@ This repository contains a pure Python implementation of a VOR (VHF Omnidirectio
 
 ## Overview
 
+> [!NOTE]
+> This library only decodes VOR signals from WAV files. It does not handle real-time signal processing or live VOR reception.
+
 VOR is a type of radio navigation system for aircraft, allowing pilots to determine their position and bearing relative to a ground-based VOR station. This decoder processes a WAV file recording of a VOR signal and extracts the bearing information using digital signal processing techniques.
+
+### VOR technical details
+
+![RF Spectrum of the VRN airport VOR](https://raw.githubusercontent.com/iu2frl/PythonVOR/main/imgs/VOR_Spectrum.png)
+
+VOR systems operate in the VHF range (108.0-117.95 MHz with 50 kHz spacing), with the lower 4 MHz shared with ILS frequencies. The VOR signal encodes directional information through the phase relationship between two 30 Hz signals. In Conventional VORs (CVOR), a 30 Hz reference signal is FM-modulated on a 9,960 Hz subcarrier while a variable 30 Hz AM signal is created by a rotating antenna.
+
+> [!NOTE]
+> This library only decodes VOR signals and not DVOR (Doppler VOR) signals. The decoding logic is designed specifically for Conventional VORs.
+
+Doppler VORs (DVOR) use a fixed circular array of omnidirectional antennas, reversing the modulation roles: the reference is AM-modulated while the variable signal uses electronic switching to create FM through the Doppler effect.
+
+Both types also transmit a station identifier in 7 WPM Morse code and often include an AM voice channel. Aircraft receivers determine bearing by measuring the phase difference between these reference and variable signals, with identical decoding regardless of VOR type.
+
+This is exactly what this decoder does: it processes a recorded VOR signal, extracts the reference and variable components, demodulates them, and calculates the bearing based on their phase difference.
 
 ## Features
 
@@ -19,7 +37,7 @@ VOR is a type of radio navigation system for aircraft, allowing pilots to determ
 
 ## Testing
 
-I tested the code using the signal from the VRN airport in Verona, Italy. The code successfully decoded the VOR signal and displayed the correct bearing with a small approximation.
+I tested the code using the signal from the VRN airport in Verona (115.800MHz), Italy. The code successfully decoded the VOR signal and displayed the correct bearing with a small approximation.
 
 ### Test points
 
