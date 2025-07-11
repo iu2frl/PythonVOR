@@ -113,7 +113,7 @@ def decimate(signal, output_rate, logger: Logger):
     )
     return result
 
-def compare_phases(ref_signal, var_signal, logger: Logger, angle_offset=216):
+def compare_phases(ref_signal, var_signal, logger: Logger, angle_offset=223):
     """
     Compare the phase of te reference and variable signals.
 

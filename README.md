@@ -27,11 +27,13 @@ I tested the code using the signal from the VRN airport in Verona, Italy. The co
 
 The following test points were used, with their respective bearings:
 
-- **45.377740N 10.880124E**: Measured 211° - Displays 208°
-- **45.392627N 10.905900E**: Measured 181° - Displays 176°
-- **45.409503N 10.883784E**: Measured 275° - Displays 270°
-- **45.412321N 10.900993E**: Measured 322° - Displays 315°
-- **45.418328N 10.930478E**: Measured 58° - Displays 52°
+| Latitude | Longitude | Measured Bearing | Displayed Bearing |
+|----------|-----------|------------------|-------------------|
+| 45.377740N | 10.880124E | 211° | 210° |
+| 45.392627N | 10.905900E | 181° | 182° |
+| 45.409503N | 10.883784E | 275° | 275° |
+| 45.412321N | 10.900993E | 322° | 320° |
+| 45.418328N | 10.930478E | 58°  | 58°  |
 
 ## Usage
 
@@ -60,7 +62,7 @@ It displays the decoding steps, including the original signal, filtered signals,
 
 ```python
 from python_vor import get_bearing
-offset = 216  # Optional offset to add in the VOR calculation
+offset = 223  # Optional offset to add in the VOR calculation
 bearing = get_bearing(str(wav_file), offset=offset)
 print(f"Bearing for {wav_file.name}: {bearing:.2f}°")
 ```
@@ -90,7 +92,7 @@ pip install numpy==2.3.1
 
 ## Contributing
 
-Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on contributing to this project.
+Please refer to the [CONTRIBUTING.md](https://raw.githubusercontent.com/iu2frl/PythonVOR/main/CONTRIBUTING.md) file for guidelines on contributing to this project.
 
 ## Attribution
 
@@ -99,4 +101,4 @@ This repository provides a cleaned-up and commented version for educational and 
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://raw.githubusercontent.com/iu2frl/PythonVOR/main/LICENSE) file for details.

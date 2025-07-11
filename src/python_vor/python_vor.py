@@ -9,7 +9,7 @@ logger = logging.getLogger("python-vor")
 
 DECIMATED_RATE = 6000
 
-def get_bearing(wav_file_path: str, offset: int = 216) -> float:
+def get_bearing(wav_file_path: str, offset: int = 223) -> float:
     """
     Calculate the bearing from a VOR audio file.
     
@@ -18,7 +18,7 @@ def get_bearing(wav_file_path: str, offset: int = 216) -> float:
     It decimates the audio to speed up processing and applies lowpass and bandpass filters to isolate the relevant signals.
     The final bearing is adjusted by the provided offset.
     
-    If a correction is needed, the default offset is set to 216 degrees, if the results are not as expected,
+    If a correction is needed, the default offset is set to 223 degrees, if the results are not as expected,
     you can adjust the offset using the `offset` parameter. The offset is calculated as follows:
     
     ```python
@@ -26,7 +26,7 @@ def get_bearing(wav_file_path: str, offset: int = 216) -> float:
     ```
     
     Where `actual_bearing` is the expected bearing based on the recording location and `calculated_bearing`
-    is the result from this function. 216 degrees is the calculated offset for my test VOR signals, it might
+    is the result from this function. 223 degrees is the calculated offset for my test VOR signals, it might
     not be the same for every VOR or location.
     
     Args:
