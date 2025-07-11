@@ -88,6 +88,10 @@ pip install scipy==1.16.0
 pip install numpy==2.3.1
 ```
 
+## Contributing
+
+Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on contributing to this project.
+
 ## Attribution
 
 Original code and algorithm by [martinber](https://github.com/martinber/vor-python-decoder).  
