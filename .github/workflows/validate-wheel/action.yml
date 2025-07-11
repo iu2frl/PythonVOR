@@ -1,0 +1,35 @@
+name: Validate Python Package and test code
+description: 'Validates Python package and runs tests'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
+    - name: Install dependencies
+      shell: bash
+      run: |
+        python -m venv venv
+        source ./venv/bin/activate
+        pip install --upgrade pip
+        pip install -r src/python_vor/requirements.txt
+        pip install --upgrade build
+    - name: Build package
+      shell: bash
+      run: |
+        source ./venv/bin/activate
+        python -m build
+    - name: Install package
+      shell: bash
+      run: |
+        source ./venv/bin/activate
+        python -m build
+        pip install ./dist/python_vor-0.0.0.tar.gz
+    - name: Run bearings validation
+      shell: bash
+      run: |
+        source ./venv/bin/activate
+        python3 ./tests/bearings_validation.py

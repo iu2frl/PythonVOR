@@ -1,0 +1,59 @@
+name: Upload Python Package to PyPI when a Release is Created
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+
+  call-validate-local:
+    name: Call Test Python Code with Local Libraries
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check local files
+        run: |
+          ls -a
+      - name: Call action to validate local code
+        uses: ./.github/workflows/validate-local/
+  
+  call-validate-wheel:
+    name: Call Test Python Code to Build Wheel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check local files
+        run: |
+          ls -a
+      - name: Call action to validate wheel
+        uses: ./.github/workflows/validate-wheel/
+
+  pypi-publish:
+    needs: [ call-validate-local, call-validate-wheel ]
+    name: Publish release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/python-vor
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install dependencies and build package
+        run: |
+          python -m venv venv
+          source ./venv/bin/activate
+          pip install --upgrade pip
+          pip install setuptools wheel build
+          pip install -r src/python_vor/requirements.txt
+          sed -i 's/version = "v0.0.0"/version = "${{ steps.get-latest-tag.outputs.tag }}"/' ./pyproject.toml
+          python -m build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

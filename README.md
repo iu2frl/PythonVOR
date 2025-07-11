@@ -43,7 +43,7 @@ The following test points were used, with their respective bearings:
 - Recording should be saved with a minimum sample rate of 48KHz (96KHz preferred)
 - There is no need to record more than 1 second of audio, as the decoder processes the signal in chunks.
 
-### Jupyter Notebook processing
+### Calculating using Jupyter Notebook
 
 The Jupyter Notebook `VOR_Decoder.ipynb` provides an interactive environment to process the recorded WAV file and extract the bearing.
 
@@ -51,6 +51,19 @@ It displays the decoding steps, including the original signal, filtered signals,
 
 1. **Set the `FILENAME` variable** in the notebook or script to point to your WAV file.
 1. **Run the notebook or script** to process the signal and extract the bearing.
+
+### Calculating using Python library
+
+1. Install the library using pip: `pip install python-vor`
+2. Import the `get_bearing` function from the library: `from python_vor import get_bearing`
+3. Call the function with the WAV file path and optional parameters:
+
+```python
+from python_vor import get_bearing
+offset = 216  # Optional offset to add in the VOR calculation
+bearing = get_bearing(str(wav_file), offset=offset)
+print(f"Bearing for {wav_file.name}: {bearing:.2f}°")
+```
 
 ### Processing details
 
@@ -66,12 +79,13 @@ The processing steps include:
 
 - numpy
 - scipy
-- matplotlib
+- matplotlib (only for the Jupyter Notebook visualization)
 
 Install them via pip if needed:
 
 ```bash
-pip install numpy scipy matplotlib
+pip install scipy==1.16.0
+pip install numpy==2.3.1
 ```
 
 ## Attribution

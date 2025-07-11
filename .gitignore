@@ -1,2 +1,7 @@
 *.wav
 !audio/*.wav
+venv/*
+*.pyc
+__pycache__/
+src/python_vor.egg-info/*
+dist/*
