@@ -14,7 +14,7 @@ try:
 except ImportError:
     # Use this block if working with source code
     sys.path.append(str(Path(__file__).parent.parent))
-    from python_vor import get_bearing
+    from src.python_vor import get_bearing
 
     print("Calling test using local library files")
 

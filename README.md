@@ -45,7 +45,7 @@ The following test points were used, with their respective bearings:
 
 ### Calculating using Jupyter Notebook
 
-The Jupyter Notebook `VOR_Decoder.ipynb` provides an interactive environment to process the recorded WAV file and extract the bearing.
+The Jupyter Notebook at [VOR_Decoder.ipynb](https://github.com/iu2frl/PythonVOR/blob/main/VOR_Decoder.ipynb) provides an interactive environment to process the recorded WAV file and extract the bearing.
 
 It displays the decoding steps, including the original signal, filtered signals, and the final bearing result with visualizations.
 
