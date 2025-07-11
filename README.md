@@ -17,11 +17,42 @@ VOR is a type of radio navigation system for aircraft, allowing pilots to determ
 - **Visualization** of signals in both time and frequency domains at each processing step
 - **Calibration support** for phase alignment
 
+## Testing
+
+I tested the code using the signal from the VRN airport in Verona, Italy. The code successfully decoded the VOR signal and displayed the correct bearing with a small approximation.
+
+### Test points
+
+![Map of the test points](./imgs/VRN_map.png)
+
+The following test points were used, with their respective bearings:
+
+- **45.377740N 10.880124E**: Measured 211° - Displays 208°
+- **45.392627N 10.905900E**: Measured 181° - Displays 176°
+- **45.409503N 10.883784E**: Measured 275° - Displays 270°
+- **45.412321N 10.900993E**: Measured 322° - Displays 315°
+- **45.418328N 10.930478E**: Measured 58° - Displays 52°
+
 ## Usage
 
-1. **Record a VOR signal** as a WAV file (mono or stereo). The recording should capture both the AM reference and FM variable signals.
-2. **Set the `FILENAME` variable** in the notebook or script to point to your WAV file.
-3. **Run the notebook or script** to process the signal and extract the bearing.
+### WAV recording
+
+**Record a VOR signal** as a WAV file (mono or stereo). The recording should capture both the AM reference and FM variable signals.
+
+- The receiver should be set to AM mode with a bandwidth of 22KHz
+- Recording should be saved with a minimum sample rate of 48KHz (96KHz preferred)
+- There is no need to record more than 1 second of audio, as the decoder processes the signal in chunks.
+
+### Jupyter Notebook processing
+
+The Jupyter Notebook `VOR_Decoder.ipynb` provides an interactive environment to process the recorded WAV file and extract the bearing.
+
+It displays the decoding steps, including the original signal, filtered signals, and the final bearing result with visualizations.
+
+1. **Set the `FILENAME` variable** in the notebook or script to point to your WAV file.
+1. **Run the notebook or script** to process the signal and extract the bearing.
+
+### Processing details
 
 The processing steps include:
 
