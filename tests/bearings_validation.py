@@ -18,6 +18,8 @@ except ImportError:
 
     print("Calling test using local library files")
 
+logger = logging.getLogger("python-vor")
+logger.setLevel(logging.DEBUG)
 
 def main():
     """

@@ -26,7 +26,10 @@ This is exactly what this decoder does: it processes a recorded VOR signal, extr
 
 ## Features
 
-- **Pure Python implementation** using NumPy, SciPy, and Matplotlib
+- **Pure Python implementation** using:
+  - NumPy
+  - SciPy
+  - Matplotlib (only in the Jupyter Notebook)
 - **Signal processing pipeline** including:
   - Lowpass and bandpass FIR filtering
   - Sample rate decimation
@@ -34,6 +37,17 @@ This is exactly what this decoder does: it processes a recorded VOR signal, extr
   - Cross-correlation for phase comparison
 - **Visualization** of signals in both time and frequency domains at each processing step
 - **Calibration support** for phase alignment
+
+## Processing details
+
+The processing steps include:
+
+- Loading audio file and displaying audio statistics (if debug logging is enabled)
+- Filtering and decimating the reference and variable signals
+- Demodulating the FM subcarrier
+- Extracting and filtering the variable signal phase
+- Comparing phases to compute the bearing
+- Returning the calculated bearing in degrees
 
 ## Testing
 
@@ -57,13 +71,15 @@ The following test points were used, with their respective bearings:
 
 ### WAV recording
 
-**Record a VOR signal** as a WAV file (mono or stereo). The recording should capture both the AM reference and FM variable signals.
+Independent of the decoding method, you need to **record a VOR signal** in WAV format. This can be done using any audio recording software or hardware that supports VOR frequencies.
 
-- The receiver should be set to AM mode with a bandwidth of 22KHz
+Record a VOR signal as a WAV file (mono or stereo). The recording should capture both the AM reference and FM variable signals.
+
+- The receiver should be set to AM mode with a bandwidth of 22KHz and centered on the VOR frequency (e.g., 115.800MHz).
 - Recording should be saved with a minimum sample rate of 48KHz (96KHz preferred)
 - There is no need to record more than 1 second of audio, as the decoder processes the signal in chunks.
 
-### Calculating using Jupyter Notebook
+### Option 1: Calculating using Jupyter Notebook
 
 The Jupyter Notebook at [VOR_Decoder.ipynb](https://github.com/iu2frl/PythonVOR/blob/main/VOR_Decoder.ipynb) provides an interactive environment to process the recorded WAV file and extract the bearing.
 
@@ -72,7 +88,7 @@ It displays the decoding steps, including the original signal, filtered signals,
 1. **Set the `FILENAME` variable** in the notebook or script to point to your WAV file.
 1. **Run the notebook or script** to process the signal and extract the bearing.
 
-### Calculating using Python library
+### Option 2: Calculating using Python library
 
 1. Install the library using pip: `pip install python-vor`
 2. Import the `get_bearing` function from the library: `from python_vor import get_bearing`
@@ -86,15 +102,63 @@ bearing = get_bearing(file_path, offset=offset)
 print(f"Bearing for file at {file_path} is: {bearing:.2f}°")
 ```
 
-### Processing details
+<details>
+<summary>Enabling debug logs</summary>
 
-The processing steps include:
+To enable detailed logging, you can set the logging level in your script:
 
-- Loading and displaying audio statistics
-- Filtering and decimating the reference and variable signals
-- Demodulating the FM subcarrier
-- Extracting and filtering the variable signal phase
-- Comparing phases to compute the bearing
+```python
+import logging
+logger = logging.getLogger("python-vor")
+logger.setLevel(logging.DEBUG)
+```
+
+This will print debug messages like:
+
+```plaintext
+DEBUG:python-vor:Loading WAV input from audio\45.409503N10.883784E-275Deg.wav
+DEBUG:python-vor:Input is stereo, keeping only one channel
+DEBUG:python-vor:Input sample rate: 96000
+DEBUG:python-vor:Input samples: 312256
+DEBUG:python-vor:Recording duration: 3.252666666666667 seconds
+DEBUG:python-vor:Recording is longer than 1 second, cutting it to 96000 samples
+DEBUG:python-vor:Input sample rate: 96000
+DEBUG:python-vor:Input samples: 96000
+DEBUG:python-vor:Recording duration: 1.0 seconds
+DEBUG:python-vor:Applying lowpass filter to reference signal
+DEBUG:python-vor:Calculating filter parameters
+DEBUG:python-vor:Lowpass filtering with 699 taps
+DEBUG:python-vor:New signal delay: 349
+DEBUG:python-vor:Decimating reference signal to 6000Hz
+DEBUG:python-vor:Decimating signal from 96000 to 6000 Hz
+DEBUG:python-vor:Applying bandpass filter to FM signal
+DEBUG:python-vor:Calculating filter parameters
+DEBUG:python-vor:Bandpass filtering with 351 taps
+DEBUG:python-vor:New signal delay: 175
+DEBUG:python-vor:Centering FM signal on 0Hz
+DEBUG:python-vor:Applying lowpass filter to FM signal
+DEBUG:python-vor:Calculating filter parameters
+DEBUG:python-vor:Lowpass filtering with 699 taps
+DEBUG:python-vor:New signal delay: 524
+DEBUG:python-vor:Decimating FM signal to 6000Hz
+DEBUG:python-vor:Decimating signal from 96000 to 6000 Hz
+DEBUG:python-vor:Calculating phase of FM signal
+DEBUG:python-vor:Removing DC from variable signal
+DEBUG:python-vor:Calculating filter parameters
+DEBUG:python-vor:Bandpass filtering with 1453 taps
+DEBUG:python-vor:New signal delay: 758
+DEBUG:python-vor:Comparing phases of reference and variable signals
+DEBUG:python-vor:Copying signals to avoid modifying the originals
+DEBUG:python-vor:Removing delays from signals
+DEBUG:python-vor:Correcting variable signal delay with angle offset
+DEBUG:python-vor:Cutting variable signal to match reference signal length
+DEBUG:python-vor:Calculating correlation between signals
+DEBUG:python-vor:Normalizing signals for better visualization
+DEBUG:python-vor:Calculated bearing: 275.4000000000001 degrees
+DEBUG:python-vor:Calculated bearing: 275.4000000000001°
+```
+
+</details>
 
 ## Dependencies
 

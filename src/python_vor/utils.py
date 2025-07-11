@@ -179,6 +179,6 @@ def get_audio_stats(samples, rate, logger: Logger):
     if not isinstance(rate, int):
         raise TypeError("Rate must be an integer")
 
-    logger.debug("Input sample rate:", rate)
-    logger.debug("Input samples:", len(samples))
+    logger.debug("Input sample rate: %s", rate)
+    logger.debug("Input samples: %s", len(samples))
     logger.debug("Recording duration: %s seconds", len(samples) / rate)
