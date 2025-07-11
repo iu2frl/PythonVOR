@@ -62,9 +62,10 @@ It displays the decoding steps, including the original signal, filtered signals,
 
 ```python
 from python_vor import get_bearing
+file_path = "path/to/your/vor_signal.wav"
 offset = 223  # Optional offset to add in the VOR calculation
-bearing = get_bearing(str(wav_file), offset=offset)
-print(f"Bearing for {wav_file.name}: {bearing:.2f}°")
+bearing = get_bearing(file_path, offset=offset)
+print(f"Bearing for file at {file_path} is: {bearing:.2f}°")
 ```
 
 ### Processing details
