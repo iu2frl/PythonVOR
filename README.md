@@ -92,7 +92,7 @@ pip install numpy==2.3.1
 
 ## Contributing
 
-Please refer to the [CONTRIBUTING.md](https://raw.githubusercontent.com/iu2frl/PythonVOR/main/CONTRIBUTING.md) file for guidelines on contributing to this project.
+Please refer to the [CONTRIBUTING.md](https://github.com/iu2frl/PythonVOR/blob/main/CONTRIBUTING.md) file for guidelines on contributing to this project.
 
 ## Attribution
 
@@ -101,4 +101,4 @@ This repository provides a cleaned-up and commented version for educational and 
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://raw.githubusercontent.com/iu2frl/PythonVOR/main/LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/iu2frl/PythonVOR/blob/main/LICENSE) file for details.
