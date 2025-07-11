@@ -23,7 +23,7 @@ I tested the code using the signal from the VRN airport in Verona, Italy. The co
 
 ### Test points
 
-![Map of the test points](./imgs/VRN_map.png)
+![Map of the test points](https://raw.githubusercontent.com/iu2frl/PythonVOR/main/imgs/VRN_map.png)
 
 The following test points were used, with their respective bearings:
 
