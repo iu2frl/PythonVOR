@@ -9,7 +9,7 @@ logger = logging.getLogger("python-vor")
 
 DECIMATED_RATE = 6000
 
-def get_bearing(wav_file_path: str, offset: int = 223) -> float:
+def get_bearing(wav_file_path: str, offset: int = 0) -> float:
     """
     Calculate the bearing from a VOR audio file.
     
@@ -31,7 +31,7 @@ def get_bearing(wav_file_path: str, offset: int = 223) -> float:
     
     Args:
         wav_file_path (str): Path to the WAV file containing VOR audio.
-        offset (int): Offset to be added to the calculated bearing.
+        offset (int): Offset to be added to the calculated bearing (Runway Heading).
     Returns:
         float: Calculated bearing of the recording location to the VOR location in degrees.
     """
