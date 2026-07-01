@@ -97,7 +97,7 @@ It displays the decoding steps, including the original signal, filtered signals,
 ```python
 from python_vor import get_bearing
 file_path = "path/to/your/vor_signal.wav"
-offset = 223  # Optional offset to add in the VOR calculation
+offset = 223  # Optional offset based on the Runway Heading (223° for VRN)
 bearing = get_bearing(file_path, offset=offset)
 print(f"Bearing for file at {file_path} is: {bearing:.2f}°")
 ```
